@@ -3,6 +3,8 @@ volumes:
   postgres_storage:
   ollama_storage:
   qdrant_storage:
+  waha_sessions:
+  waha_media:
 
 networks:
   demo:
@@ -107,10 +109,29 @@ services:
     volumes:
       - qdrant_storage:/qdrant/storage
 
+  # WAHA - WhatsApp HTTP API
+  waha:
+    image: devlikeapro/waha:latest
+    container_name: waha
+    platform: linux/amd64
+    networks: ['demo']
+    environment:
+      WHATSAPP_HOOK_URL: http://n8n:5678/webhook/webhook
+      WHATSAPP_DEFAULT_ENGINE: WEBJS
+      WHATSAPP_HOOK_EVENTS: message.any
+    volumes:
+      - waha_sessions:/app/.sessions
+      - waha_media:/app/.media
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  # Ollama - CPU
   ollama-cpu:
     profiles: ["cpu"]
     <<: *service-ollama
 
+  # Ollama - NVIDIA GPU
   ollama-gpu:
     profiles: ["gpu-nvidia"]
     <<: *service-ollama
@@ -122,6 +143,7 @@ services:
               count: 1
               capabilities: [gpu]
 
+  # Ollama - AMD GPU
   ollama-gpu-amd:
     profiles: ["gpu-amd"]
     <<: *service-ollama
