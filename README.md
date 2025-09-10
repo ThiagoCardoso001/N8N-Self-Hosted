@@ -40,8 +40,8 @@ Engineering world, handles large amounts of data safely.
 ### Cloning the Repository
 
 ```bash
-git clone https://github.com/n8n-io/self-hosted-ai-starter-kit.git
-cd self-hosted-ai-starter-kit
+git clone https://github.com/ThiagoCardoso001/N8N-Self-Hosted
+cd N8N-Self-Hosted
 cp .env.example .env # you should update secrets and passwords inside
 ```
 
@@ -50,8 +50,8 @@ cp .env.example .env # you should update secrets and passwords inside
 #### For Nvidia GPU users
 
 ```bash
-git clone https://github.com/n8n-io/self-hosted-ai-starter-kit.git
-cd self-hosted-ai-starter-kit
+git clone https://github.com/ThiagoCardoso001/N8N-Self-Hosted
+cd N8N-Self-Hosted
 cp .env.example .env # you should update secrets and passwords inside
 docker compose --profile gpu-nvidia up
 ```
