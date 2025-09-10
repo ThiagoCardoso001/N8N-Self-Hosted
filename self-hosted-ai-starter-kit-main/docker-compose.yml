@@ -170,3 +170,17 @@ services:
     image: ollama/ollama:rocm
     depends_on:
      - ollama-gpu-amd
+
+  # Redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    platform: linux/amd64
+    command: redis-server --requirepass default
+    environment:
+      REDIS_USER: default
+      REDIS_PASSWORD: default
+    networks: ['demo']
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
